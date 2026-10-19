@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Matematika Kelas 6 - Perbandingan & Skala</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#DC2626',
+                            darkred: '#991B1B',
+                            black: '#0A0A0A',
+                            card: '#141414',
+                            border: '#2A2A2A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #F3F4F6;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141414;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DC2626;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-brand-black flex flex-col justify-between selection:bg-red-600 selection:text-white">
+
+    <header class="bg-brand-card border-b border-brand-border sticky top-0 z-50 px-6 py-4 shadow-xl">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center p-1 shadow-lg shadow-red-900/40 border border-red-800 overflow-hidden">
+                    <img src="https://iili.io/nwumI5J.md.png" alt="Logo Asesmen" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/991B1B/ffffff?text=Logo';">
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide text-white">ASESMEN MATEMATIKA KELAS 6</h1>
+                    <p class="text-xs text-zinc-400">Materi: Perbandingan & Skala</p>
+                </div>
+            </div>
+            <div id="userInfoHeader" class="hidden items-center space-x-4 bg-zinc-900 px-4 py-2 rounded-xl border border-zinc-800 text-sm">
+                <div>
+                    <span class="text-zinc-400 text-xs block">Siswa:</span>
+                    <span id="displayStudentName" class="font-semibold text-white"></span>
+                </div>
+                <div class="h-6 w-px bg-zinc-700"></div>
+                <div>
+                    <span class="text-zinc-400 text-xs block">Kelas:</span>
+                    <span id="displayStudentClass" class="font-semibold text-red-500"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6">
+        
+        <!-- Welcome Section -->
+        <section id="welcomeSection" class="w-full max-w-xl bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-600 to-red-900"></div>
+            
+            <div class="text-center mb-8">
+                <span class="px-3 py-1 bg-red-950/80 text-red-400 text-xs font-semibold rounded-full border border-red-800/50 uppercase tracking-widest inline-block mb-3">Ujian Sumatif / Asesmen</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">Selamat Datang, Siswa!</h2>
+                <p class="text-zinc-400 text-sm">Silakan pilih Nama Lengkap dan Kelas Anda terlebih dahulu sebelum memulai asesmen matematika.</p>
+            </div>
+
+            <form id="loginForm" class="space-y-6" onsubmit="startAssessment(event)">
+                <div>
+                    <label class="block text-sm font-medium text-zinc-300 mb-2">
+                        <i class="fa-solid fa-user-graduate text-red-500 mr-2"></i>Pilih Nama Lengkap
+                    </label>
+                    <select id="nameSelect" required class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition font-medium">
+                        <option value="" disabled selected>-- Pilih Nama Lengkap --</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-zinc-300 mb-2">
+                        <i class="fa-solid fa-school text-red-500 mr-2"></i>Pilih Kelas
+                    </label>
+                    <select id="classSelect" required class="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-red-600 transition font-medium">
+                        <option value="" disabled selected>-- Pilih Kelas --</option>
+                        <option value="6.A">Kelas 6.A</option>
+                        <option value="6.B">Kelas 6.B</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-red-900/30 transition transform active:scale-[0.99] flex items-center justify-center space-x-2">
+                    <span>Mulai Mengerjakan</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </section>
+
+        <!-- Assessment Section -->
+        <section id="assessmentSection" class="hidden w-full max-w-4xl mx-auto space-y-6">
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-4 sm:p-6 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <div id="questionBadge" class="px-3 py-1 bg-red-950 text-red-400 border border-red-800 text-xs font-bold rounded-lg uppercase tracking-wider">
+                        Soal 1 dari 10
+                    </div>
+                    <span id="questionTypeBadge" class="text-xs text-zinc-400 font-medium bg-zinc-900 px-3 py-1 rounded-lg border border-zinc-800">Pilihan Ganda</span>
+                </div>
+                <div class="w-full sm:w-64 bg-zinc-900 h-2.5 rounded-full overflow-hidden border border-zinc-800">
+                    <div id="progressBar" class="bg-gradient-to-r from-red-600 to-red-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+                <div id="questionContent" class="space-y-6">
+                    <!-- Soal dirender lewat JS -->
+                </div>
+
+                <div class="flex items-center justify-between pt-8 mt-8 border-t border-zinc-800">
+                    <button id="prevBtn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-semibold text-sm border border-zinc-800 transition flex items-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+                    
+                    <div id="questionDots" class="hidden md:flex space-x-1.5 flex-wrap justify-center gap-y-1">
+                        <!-- Dots nomor soal -->
+                    </div>
+
+                    <button id="nextBtn" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold text-sm shadow-lg shadow-red-900/20 transition flex items-center space-x-2">
+                        <span>Selanjutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <section id="resultSection" class="hidden w-full max-w-2xl bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 shadow-2xl text-center space-y-6">
+            <div id="resultIconContainer" class="w-20 h-20 bg-red-950/80 border border-red-800 text-red-500 rounded-3xl mx-auto flex items-center justify-center text-3xl shadow-xl shadow-red-950/50">
+                <i id="resultIcon" class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+                <span id="resultBadge" class="px-3 py-1 bg-red-950 text-red-400 text-xs font-semibold rounded-full border border-red-800 uppercase tracking-widest inline-block mb-2">Terkirim</span>
+                <h2 id="resultTitle" class="text-2xl sm:text-3xl font-extrabold text-white">Asesmen Berhasil Disimpan</h2>
+                <p id="resultSubtitle" class="text-zinc-400 text-sm mt-1">Terima kasih telah menyelesaikan asesmen matematika dengan baik. Jawaban Anda telah direkam.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 max-w-md mx-auto">
+                <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+                    <span class="text-xs text-zinc-400 block mb-1">Nama Siswa</span>
+                    <span id="resName" class="font-bold text-white text-sm truncate block">--</span>
+                </div>
+                <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+                    <span class="text-xs text-zinc-400 block mb-1">Kelas</span>
+                    <span id="resClass" class="font-bold text-red-500 text-sm block">--</span>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="location.reload()" class="w-full sm:w-auto px-8 bg-red-600 hover:bg-red-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-red-900/30 transition flex items-center justify-center space-x-2 mx-auto">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Selesai / Keluar</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Alert Modal -->
+        <div id="alertModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-brand-card border border-brand-border w-full max-w-md rounded-2xl p-6 text-center space-y-4 shadow-2xl">
+                <div id="alertIcon" class="w-14 h-14 bg-red-950/80 text-red-500 border border-red-800 rounded-2xl mx-auto flex items-center justify-center text-2xl">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 id="alertTitle" class="text-xl font-bold text-white">Peringatan</h3>
+                <p id="alertMessage" class="text-zinc-400 text-sm">Pesan peringatan akan muncul di sini.</p>
+                <button onclick="closeAlert()" class="w-full bg-red-600 hover:bg-red-500 text-white font-semibold py-3 rounded-xl transition">
+                    Mengerti
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-brand-card border-t border-brand-border py-4 px-6 text-center text-xs text-zinc-500">
+        <p>&copy; 2026 Asesmen Matematika Kelas 6. Kurikulum Merdeka. Dibuat Profesional.</p>
+    </footer>
+
+    <script>
+        // PASTE URL WEB APP APPS SCRIPT ANDA DI BAWAH INI
+        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfjCmUD4HQlPy5yGrj4zhBfn2sdsP7NHiyQx8Cv4F6a8IJ599rm5N2r3eWcR55gxal/exec";
+
+        const studentsList = [
+            "ACHMAD ALIANDO HUNGGU",
+            "AGHNA VALERIA MUKMIN",
+            "AKIFA NAILA R. HUSAIN",
+            "BILQIS ALILLATUL BARIZAH H. BIGA",
+            "ERWIN YANTONI",
+            "FAIRA RAHMAWATY MINGGA",
+            "FATHIR RAMADHAN ARDIANSYAH",
+            "GUSNANDAR N. MUSA",
+            "HUMAIROH DAULIMA",
+            "ILHAM DAI",
+            "KHANSA FARAH SALSABILA MA'RUF",
+            "LUTFIA ZAHRA THALITA KONI",
+            "MOH. FADIL MUNGGEA",
+            "MUHAMAD ARDIYANSA A. SAWAL",
+            "MUHAMMAD AZZAM KHAIRULANAM",
+            "NUR AIN MUSA",
+            "NUR SHIRA AHMAD",
+            "NURHAYATI IGIRISA",
+            "ZANNATU SYAQIAH PODUNGGE",
+            "AHMAD FAHMI L. BASALA",
+            "AHMAD RADITYA HAMID",
+            "ALFARO NURDAFFA DAUD",
+            "ASSYIFA ALINA DARISE",
+            "AZRIL GHAZALI HUSAIN",
+            "BULANDARI AYU PRAMESTI",
+            "CITRA LESTARI H. KANGO",
+            "FADRIZAN KOEM",
+            "FARHANUDIN KARIM",
+            "FATMA TOTAMU",
+            "JIBRIL MAHAJANI",
+            "NAVILA PUTRI ISMAIL",
+            "NUR AZIZAH KANGO",
+            "RAHMADANI AULIA BAKARI",
+            "SUKRAN RAMADAN ABDULLAH",
+            "WAHYU PONGOLIU",
+            "WIRNA RAHIM"
+        ].sort();
+
+        const questions = [
+            {
+                type: 'mc',
+                question: 'Fadrizan dan Sukran adalah saudara. Umur Fadrizan 32 tahun, sedangkan umur Sukran 40 tahun. Perbandingan umur Fadrizan dan Sukran adalah ...',
+                options: ['4 : 5', '3 : 4', '3 : 5', '2 : 3'],
+                answer: '4 : 5'
+            },
+            {
+                type: 'mc',
+                question: 'Pak Kepala Desa meminta Wahyu dan Erwin untuk mengumpulkan kelapa di kebun milik Pak Kepala Desa. Perbandingan kelapa yang dikumpulkan Wahyu dan Erwin adalah 4 : 5. Jika Erwin berhasil mengumpulkan kelapa sebanyak 20 buah, maka kelapa yang berhasil dikumpulkan Wahyu adalah sebanyak ...',
+                options: ['20 buah', '16 buah', '21 buah', '14 buah'],
+                answer: '16 buah'
+            },
+            {
+                type: 'mc',
+                question: 'Perbandingan umur Ilham dan Radit adalah 2 : 3. Jika jumlah umur mereka 25 tahun, maka umur Radit adalah ...',
+                options: ['16 tahun', '17 tahun', '15 tahun', '18 tahun'],
+                answer: '15 tahun'
+            },
+            {
+                type: 'mc',
+                question: 'Farhan dan Aliando bekerja sebagai pemetik buah mangga di kebun Pak Joko. Pada saat panen tiba, perbandingan jumlah petikan mangga Farhan dan Aliando adalah 2 : 5. Jika selisih jumlah petikan mangga Farhan dan Aliando adalah 27 buah mangga, maka jumlah mangga yang berhasil dipetik Aliando adalah ...',
+                options: ['30 buah', '35 buah', '40 buah', '45 buah'],
+                answer: '45 buah'
+            },
+            {
+                type: 'complex',
+                question: 'Fatmah dan Bulan membeli gula di toko barang harian. Perbandingan belanjaan Fatmah dan Bulan adalah 2 : 5. Jumlah total belanjaan gula mereka adalah 56 kg. Pilih semua pernyataan yang sesuai!',
+                options: [
+                    'Fatmah membeli gula sebanyak 16 kg',
+                    'Bulan membeli gula sebanyak 24 kg',
+                    'Bulan membeli gula sebanyak 40 kg',
+                    'Fatmah dan bulan membeli gula sama banyak',
+                    'Fatmah membeli gula sebanyak 21 kg'
+                ],
+                answer: ['Fatmah membeli gula sebanyak 16 kg', 'Bulan membeli gula sebanyak 40 kg']
+            },
+            {
+                type: 'complex',
+                question: 'Suatu hari MIN 1 Kabupaten Gorontalo mendapat kunjungan dari puskesmas untuk mengukur berat badan siswa. Berdasarkan hasil timbangan, perbandingan berat badan Azam dan Erwin adalah 3 : 5. Jumlah berat badan mereka berdua adalah 72 kg. Pilih semua pernyataan yang sesuai!',
+                options: [
+                    'Berat badan Azam 72 kg',
+                    'Berat badan Erwin 45 kg',
+                    'Berat badan Azam 27 kg',
+                    'Berat badan Azam dan Erwin sama',
+                    'Berat badan Erwin 32 kg'
+                ],
+                answer: ['Berat badan Erwin 45 kg', 'Berat badan Azam 27 kg']
+            },
+            {
+                type: 'complex',
+                question: 'Faira dan Kanza adalah saudara kakak beradik. Perbandingan umur Faira dan Kanza adalah 2 : 5. Selisih umur mereka adalah 18 tahun. Pilih semua pernyataan yang sesuai!',
+                options: [
+                    'Umur Faira 18 tahun',
+                    'Umur Kanza 25 tahun',
+                    'Umur Faira 12 tahun',
+                    'Umur Faira dan Kanza sama',
+                    'Umur Kanza 30 tahun'
+                ],
+                answer: ['Umur Faira 12 tahun', 'Umur Kanza 30 tahun']
+            },
+            {
+                type: 'match',
+                question: 'Bilqis dan Naila adalah saudara. Umur Bilqis 20 tahun, sedangkan umur Faira 32 tahun. Perbandingan umur Bilqis dan Faira adalah ...',
+                answer: '5 : 8'
+            },
+            {
+                type: 'match',
+                question: 'Perbandingan umur Fathir dan Farhan adalah 3 : 5. Jika jumlah umur mereka 24 tahun, maka umur Farhan adalah ...',
+                answer: '15 tahun'
+            },
+            {
+                type: 'match',
+                question: 'Erwin membeli dua jenis buku di warung. Erwin membeli buku A sebanyak 3 buah dengan harga Rp 15.000 dan buku B sebanyak 4 buah dengan harga Rp 16.000. Di antara kedua jenis buku tersebut, buku yang harga per buahnya paling mahal adalah ...',
+                answer: 'Buku A'
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let currentStudent = {};
+
+        function populateStudentDropdown() {
+            const nameSelect = document.getElementById('nameSelect');
+            nameSelect.innerHTML = '<option value="" disabled selected>-- Pilih Nama Lengkap --</option>';
+            studentsList.forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                nameSelect.appendChild(opt);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            populateStudentDropdown();
+        });
+
+        function requestFullscreenMode() {
+            try {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen().catch(() => {});
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } catch (err) {
+                console.log('Fullscreen request ignored:', err);
+            }
+        }
+
+        function startAssessment(event) {
+            event.preventDefault();
+            const className = document.getElementById('classSelect').value;
+            const studentName = document.getElementById('nameSelect').value;
+
+            if (!className || !studentName) {
+                showAlert("Form Belum Lengkap", "Silakan pilih Nama Lengkap dan Kelas Anda terlebih dahulu!");
+                return;
+            }
+
+            currentStudent = { name: studentName, class: className };
+            
+            requestFullscreenMode();
+
+            document.getElementById('displayStudentName').textContent = studentName;
+            document.getElementById('displayStudentClass').textContent = "Kelas " + className;
+            document.getElementById('userInfoHeader').classList.remove('hidden');
+            document.getElementById('userInfoHeader').classList.add('flex');
+
+            document.getElementById('welcomeSection').classList.add('hidden');
+            document.getElementById('assessmentSection').classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            const content = document.getElementById('questionContent');
+
+            document.getElementById('questionBadge').textContent = `Soal ${currentQuestionIndex + 1} dari ${questions.length}`;
+            const pct = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+
+            let typeLabel = "Pilihan Ganda";
+            if (q.type === 'complex') typeLabel = "Pilihan Ganda Kompleks";
+            if (q.type === 'match') typeLabel = "Isian Singkat";
+            document.getElementById('questionTypeBadge').textContent = typeLabel;
+
+            let html = `
+                <div class="space-y-4">
+                    <h3 class="text-lg sm:text-xl font-bold text-white leading-relaxed">${q.question}</h3>
+            `;
+
+            if (q.type === 'mc') {
+                html += `<div class="grid grid-cols-1 gap-3 pt-2">`;
+                q.options.forEach(opt => {
+                    const isSelected = userAnswers[currentQuestionIndex] === opt;
+                    html += `
+                        <button type="button" onclick="selectMcAnswer('${opt.replace(/'/g, "\\'")}')" class="w-full text-left px-5 py-4 rounded-xl border transition flex items-center justify-between font-medium ${
+                            isSelected 
+                            ? 'bg-red-950/80 border-red-600 text-white shadow-lg shadow-red-950/50' 
+                            : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:text-white'
+                        }">
+                            <span>${opt}</span>
+                            <div class="w-5 h-5 rounded-full border ${isSelected ? 'border-red-500 bg-red-600' : 'border-zinc-700'} flex items-center justify-center">
+                                ${isSelected ? '<i class="fa-solid fa-check text-xs text-white"></i>' : ''}
+                            </div>
+                        </button>
+                    `;
+                });
+                html += `</div>`;
+            } else if (q.type === 'complex') {
+                const currentAnsArr = userAnswers[currentQuestionIndex] || [];
+                html += `<p class="text-xs text-red-400 italic mb-2">* Boleh memilih lebih dari satu jawaban yang benar</p>`;
+                html += `<div class="grid grid-cols-1 gap-3 pt-1">`;
+                q.options.forEach(opt => {
+                    const isChecked = currentAnsArr.includes(opt);
+                    html += `
+                        <button type="button" onclick="toggleComplexAnswer('${opt.replace(/'/g, "\\'")}')" class="w-full text-left px-5 py-4 rounded-xl border transition flex items-center justify-between font-medium ${
+                            isChecked 
+                            ? 'bg-red-950/80 border-red-600 text-white shadow-lg shadow-red-950/50' 
+                            : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:text-white'
+                        }">
+                            <span>${opt}</span>
+                            <div class="w-5 h-5 rounded-md border ${isChecked ? 'border-red-500 bg-red-600' : 'border-zinc-700'} flex items-center justify-center">
+                                ${isChecked ? '<i class="fa-solid fa-check text-xs text-white"></i>' : ''}
+                            </div>
+                        </button>
+                    `;
+                });
+                html += `</div>`;
+            } else if (q.type === 'match') {
+                const val = userAnswers[currentQuestionIndex] || '';
+                html += `
+                    <div class="pt-3">
+                        <label class="block text-xs text-zinc-400 mb-2">Ketikkan jawaban Anda di bawah ini:</label>
+                        <input type="text" value="${val}" oninput="setMatchAnswer(this.value)" placeholder="Ketikkan jawaban di sini..." class="w-full bg-zinc-900 border border-zinc-800 text-white px-5 py-4 rounded-xl focus:outline-none focus:border-red-600 font-medium">
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            content.innerHTML = html;
+
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.innerHTML = `<span>Selesai & Kirim</span> <i class="fa-solid fa-paper-plane"></i>`;
+                nextBtn.className = "px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg shadow-emerald-900/20 transition flex items-center space-x-2";
+            } else {
+                nextBtn.innerHTML = `<span>Selanjutnya</span> <i class="fa-solid fa-arrow-right"></i>`;
+                nextBtn.className = "px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold text-sm shadow-lg shadow-red-900/20 transition flex items-center space-x-2";
+            }
+
+            renderQuestionDots();
+        }
+
+        function renderQuestionDots() {
+            const dotsContainer = document.getElementById('questionDots');
+            let dotsHtml = '';
+            questions.forEach((_, idx) => {
+                const isCurrent = idx === currentQuestionIndex;
+                const isAnswered = userAnswers[idx] !== undefined && userAnswers[idx] !== '' && (!Array.isArray(userAnswers[idx]) || userAnswers[idx].length > 0);
+                
+                let dotClass = "bg-zinc-800 text-zinc-500 border-zinc-700";
+                if (isCurrent) {
+                    dotClass = "bg-red-600 text-white border-red-500 font-bold ring-2 ring-red-900";
+                } else if (isAnswered) {
+                    dotClass = "bg-emerald-950 text-emerald-400 border-emerald-800 font-semibold";
+                }
+
+                dotsHtml += `
+                    <button onclick="goToQuestion(${idx})" class="w-7 h-7 text-xs rounded-lg border flex items-center justify-center transition ${dotClass}">
+                        ${idx + 1}
+                    </button>
+                `;
+            });
+            dotsContainer.innerHTML = dotsHtml;
+        }
+
+        function selectMcAnswer(val) {
+            userAnswers[currentQuestionIndex] = val;
+            renderQuestion();
+        }
+
+        function toggleComplexAnswer(val) {
+            let current = userAnswers[currentQuestionIndex] || [];
+            if (!Array.isArray(current)) current = [];
+            
+            if (current.includes(val)) {
+                current = current.filter(item => item !== val);
+            } else {
+                current.push(val);
+            }
+            userAnswers[currentQuestionIndex] = current;
+            renderQuestion();
+        }
+
+        function setMatchAnswer(val) {
+            userAnswers[currentQuestionIndex] = val;
+            renderQuestionDots();
+        }
+
+        function goToQuestion(index) {
+            currentQuestionIndex = index;
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishAssessment();
+            }
+        }
+
+        async function finishAssessment() {
+            document.getElementById('resName').textContent = currentStudent.name;
+            document.getElementById('resClass').textContent = "Kelas " + currentStudent.class;
+
+            document.getElementById('assessmentSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+
+            // Format array jawaban siswa (tiap nomor soal pada index tersendiri)
+            const formattedAnswers = questions.map((_, idx) => userAnswers[idx] || "");
+
+            if (GOOGLE_APPS_SCRIPT_URL && !GOOGLE_APPS_SCRIPT_URL.includes("AKfycbx_XXXXX")) {
+                try {
+                    document.getElementById('resultSubtitle').textContent = "Sedang mengirim jawaban Anda ke Google Spreadsheet...";
+                    
+                    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            studentName: currentStudent.name,
+                            studentClass: currentStudent.class,
+                            answers: formattedAnswers
+                        })
+                    });
+
+                    document.getElementById('resultSubtitle').textContent = "Jawaban Anda telah berhasil direkam dan disimpan di Google Spreadsheet.";
+                } catch (err) {
+                    console.error("Gagal mengirim ke Spreadsheet:", err);
+                    document.getElementById('resultSubtitle').textContent = "Terjadi kendala jaringan, namun asesmen telah diselesaikan.";
+                }
+            } else {
+                document.getElementById('resultSubtitle').textContent = "Mode Demo: Pasang Web App URL Apps Script Anda agar data tersimpan di Google Spreadsheet.";
+            }
+        }
+
+        function showAlert(title, message) {
+            document.getElementById('alertTitle').textContent = title;
+            document.getElementById('alertMessage').textContent = message;
+            document.getElementById('alertModal').classList.remove('hidden');
+        }
+
+        function closeAlert() {
+            document.getElementById('alertModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
